@@ -2,22 +2,23 @@
   <form #myForm="ngForm">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" name="email" aria-describedby="emailhelp" ngModel>
+      <input type="email" class="form-control" name="email" aria-describedby="emailhelp" [(ngModel)]="userObj.email">
      </div>
      <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">full name</label>
-      <input type="email" class="form-control" name="name" aria-describedby="emailhelp" ngModel>
+      <input type="email" class="form-control" name="name" aria-describedby="emailhelp" [(ngModel)]="userObj.name">
      </div>
      <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">mobile number</label>
-      <input type="email" class="form-control" name="mobile" aria-describedby="emailhelp" ngModel>
+      <input type="email" class="form-control" name="mobile" aria-describedby="emailhelp"  [(ngModel)]="userObj.mobile">
      </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" name="password" aria-describedby="emailhelp" ngModel>
+      <input type="password" class="form-control" name="password" aria-describedby="emailhelp"  [(ngModel)]="userObj.password">
     </div>
     
-    <button type="button" class="btn btn-primary" (click)="adduser(myForm.value)">Submit</button>
+    <button type="button" class="btn btn-primary" (click)="adduser(myForm.value)" *ngIf= "!isEdit"> Submit</button>
+    <button type="button" class="btn btn-info"  *ngIf= "isEdit" (click)="updateUser()" >Update</button> 
   </form>
   <br>
   <table class="table">
@@ -38,8 +39,8 @@
        <td>{{user.mobile}}</td>
        <td>{{user.email}}</td>
        <td>{{user.password}}</td>
-       <td><button class="btn btn-warning">Edit</button></td>
-       <td><button class="btn btn-danger">delete</button></td>
+       <td><button (click)="editUser(user)" class="btn btn-warning">Edit</button></td>
+       <td><button (click)="deleteUser(user)" class="btn btn-danger">delete</button></td>
         
 
      </tr>

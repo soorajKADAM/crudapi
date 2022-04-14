@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +15,10 @@ export class CommonService {
   getallUser(){
     return this._http.get("http://localhost:3000/users");
   }
-  updateUser(){}
-  deleteUser(){}
+  updateUser(user){
+    return this._http.put("http://localhost:3000/users" +user.id, user)
+  }
+  deleteUser(user){
+    return this._http.delete("http://localhost:3000/users/" + user.id);
+  }
 }

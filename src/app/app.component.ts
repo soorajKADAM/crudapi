@@ -1,7 +1,8 @@
 import { Component, NgIterable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CommonService } from './common.service';
-import {user} from './app'
+import { User } from './app';
+
 
 
 @Component({
@@ -16,23 +17,22 @@ import {user} from './app'
 
 export class AppComponent {
   
-response: any;
+
   title = 'crudapi';
-
-  eachUser: Object
-
-  
-
+eachUser:any=[]
+isEdit=false;
+userObj={
+  name:'',
+  mobile:'',
+  email:'',
+  password:'',
+  id:''
+}
  
- 
- 
-  
-  
   constructor(private commonService:CommonService){}
   ngOninit(){
-  
-  
     this.getLatestUser();
+  
   }
   adduser(formsObj){
     console.log(formsObj)
@@ -41,16 +41,28 @@ response: any;
      
     })
 
-  
-
   }
-  
+
   getLatestUser(){
     
       this.commonService.getallUser().subscribe((response)=>{
-        this.eachUser = response 
+        this.eachUser = response   ;    
+      });
+  }
+  editUser(user){
+    this.isEdit=true;
+    this.userObj=user;
+  }
+  deleteUser(user){
+    this.commonService.deleteUser(user).subscribe(()=>{
+      this.getLatestUser();
 
-       
-      })
+    })
+  }
+  updateUser(){
+    this.isEdit = !this.isEdit;
+    this.commonService.updateUser(this.userObj).subscribe(()=>{
+      this.getLatestUser();
+    })
   }
 }
